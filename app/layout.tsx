@@ -33,7 +33,7 @@ export default function RootLayout({
     return (
         <html lang="es">
             <body className={montserrat.variable}>
-                <Theme theme="light">
+                <Theme>
                     <StyledComponentsRegistry>
                         {children}
                     </StyledComponentsRegistry>
