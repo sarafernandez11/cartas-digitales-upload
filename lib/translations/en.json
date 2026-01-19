@@ -1,0 +1,11 @@
+{
+    "upload.title": "Upload menu images",
+    "upload.subtitle": "We will digitize it for you",
+    "upload.uploadZoneText": "Upload images from your\ncamera or gallery",
+    "upload.uploadZoneLabel": "Image upload zone. Click or drag images here.",
+    "upload.uploadZoneScreenReader": "Press Enter or Space to open the file selector, or drag and drop images here.",
+    "upload.imageAlt": "Uploaded image: {filename}",
+    "upload.errorNoImages": "Please upload at least one image",
+    "upload.sendButton": "Send",
+    "upload.sending": "Sending {count} image(s)..."
+}

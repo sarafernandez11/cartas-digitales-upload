@@ -1,0 +1,11 @@
+{
+    "upload.title": "Puja imatges del menú",
+    "upload.subtitle": "Nosaltres el digitalitzarem per a tu",
+    "upload.uploadZoneText": "Puja imatges des de la\ncàmera o des de la galeria",
+    "upload.uploadZoneLabel": "Zona de càrrega d'imatges. Fes clic o arrossega imatges aquí.",
+    "upload.uploadZoneScreenReader": "Premeu Intro o Espai per obrir el selector de fitxers, o arrossegueu i deixeu anar imatges aquí.",
+    "upload.imageAlt": "Imatge pujada: {filename}",
+    "upload.errorNoImages": "Si us plau, puja almenys una imatge",
+    "upload.sendButton": "Enviar",
+    "upload.sending": "Enviant {count} imatge(s)..."
+}
