@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
+import { useTranslations } from "@/lib/useTranslations";
 import ImageUploadZone from "@/components/image-upload-zone";
 import ImageThumbnailGrid from "@/components/image-thumbnail-grid";
 import {
@@ -32,6 +33,7 @@ export default function Home() {
     const [images, setImages] = useState<File[]>([]);
     const [selectedLanguage, setSelectedLanguage] = useState("ES");
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { t } = useTranslations(selectedLanguage as "ES" | "EN" | "CA");
 
     const handleImagesSelected = (files: File[]) => {
         setImages((prev) => [...prev, ...files]);
@@ -43,11 +45,11 @@ export default function Home() {
 
     const handleSend = () => {
         if (images.length === 0) {
-            alert("Por favor, sube al menos una imagen");
+            alert(t("upload.atLeastOneImage"));
             return;
         }
-        console.log("Enviando imágenes:", images);
-        alert(`Enviando ${images.length} imagen(es)...`);
+        console.log(t("upload.sendingImages"), images);
+        alert(t("upload.sendingCount", { count: images.length }));
     };
 
     return (
@@ -72,12 +74,12 @@ export default function Home() {
 
             <Content>
                 <TitleSection>
-                    <Title>Sube imágenes de la carta</Title>
-                    <Subtitle>Nosotros la digitalizaremos por ti</Subtitle>
+                    <Title>{t("upload.title")}</Title>
+                    <Subtitle>{t("upload.subtitle")}</Subtitle>
                 </TitleSection>
 
                 <Section>
-                    <ImageUploadZone onImagesSelected={handleImagesSelected} />
+                    <ImageUploadZone onImagesSelected={handleImagesSelected} selectedLanguage={selectedLanguage} />
                 </Section>
 
                 <Section>
@@ -104,7 +106,7 @@ export default function Home() {
 
             <Footer>
                 <SendButton onClick={handleSend}>
-                    Enviar
+                    {t("upload.sendButton")}
                     <ArrowRight size={16} strokeWidth={2.5} />
                 </SendButton>
             </Footer>

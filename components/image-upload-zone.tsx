@@ -4,6 +4,7 @@ import type React from "react";
 import { useRef, useState } from "react";
 import Image from "next/image";
 
+import { useTranslations } from "@/lib/useTranslations";
 import {
     UploadContainer,
     UploadContent,
@@ -14,13 +15,16 @@ import {
 
 interface ImageUploadZoneProps {
     onImagesSelected: (files: File[]) => void;
+    selectedLanguage: string;
 }
 
 export default function ImageUploadZone({
     onImagesSelected,
+    selectedLanguage,
 }: ImageUploadZoneProps) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [isDragOver, setIsDragOver] = useState(false);
+    const { t } = useTranslations(selectedLanguage as "ES" | "EN" | "CA");
 
     const handleClick = () => {
         fileInputRef.current?.click();
@@ -78,13 +82,10 @@ export default function ImageUploadZone({
                     <Image src="/upload.svg" alt="" width={60} height={60} />
                 </div>
                 <UploadText>
-                    Sube imágenes desde la
-                    <br />
-                    cámara o desde la galería
+                    {t("upload.uploadZoneText")}
                 </UploadText>
                 <StyledVisuallyHidden>
-                    Presiona Enter o Espacio para abrir el selector de archivos,
-                    o arrastra y suelta imágenes aquí.
+                    {t("upload.uploadZoneScreenReader")}
                 </StyledVisuallyHidden>
             </UploadContent>
             <HiddenInput
