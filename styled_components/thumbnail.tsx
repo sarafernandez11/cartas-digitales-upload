@@ -11,7 +11,7 @@ export const ThumbnailContainer = styled.div`
 export const ThumbnailImage = styled.img`
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: scale-down;
 `;
 
 export const ThumbnailPlaceholder = styled.div`
