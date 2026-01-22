@@ -80,12 +80,21 @@ export default function Home() {
         setToastOpen(true);
     };
 
-    const handleSend = () => {
+    const handleSend = async () => {
         if (!isFormValid) {
             return;
         }
         console.log("Enviando imágenes:", images, "Menu:", menuName);
         setProcessingModalOpen(true);
+        const formData = new FormData();
+        formData.append("menuName", menuName);
+        for (const i of images) formData.append("images", i);
+
+        const response = await fetch("/api/menu-upload", {
+            method: "POST",
+            body: formData,
+        });
+        console.log(response);
     };
 
     const handleCreateNewMenu = () => {
@@ -132,11 +141,9 @@ export default function Home() {
                                 </StyledDropdownContent>
                             </DropdownMenu.Portal>
                         </DropdownMenu.Root>
-                        <Link href="/menus" passHref>
-                            <ViewMenusButton as="a" aria-label="Ver mis menus">
-                                <FileText size={14} />
-                                Mis menus
-                            </ViewMenusButton>
+                        <Link href="/menus" aria-label="Ver mis menus">
+                            <FileText size={14} />
+                            Mis menus
                         </Link>
                     </HeaderNav>
                 </Header>
