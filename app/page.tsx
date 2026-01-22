@@ -21,6 +21,9 @@ import {
     StyledDropdownTrigger,
     StyledDropdownContent,
     StyledDropdownItem,
+    InputWrapper,
+    InputLabel,
+    StyledInput,
 } from "@/styled_components";
 
 const languages = [
@@ -32,6 +35,7 @@ const languages = [
 export default function Home() {
     const [images, setImages] = useState<File[]>([]);
     const [selectedLanguage, setSelectedLanguage] = useState("ES");
+      const [menuName, setMenuName] = useState("")
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { t } = useTranslations(selectedLanguage as "ES" | "EN" | "CA");
 
@@ -55,22 +59,27 @@ export default function Home() {
     return (
         <Main>
             <Header>
-        <DropdownMenu.Root>
-          <StyledDropdownTrigger>
-            {selectedLanguage}
-            <ChevronDown size={16} />
-          </StyledDropdownTrigger>
-          <DropdownMenu.Portal>
-            <StyledDropdownContent align="start" sideOffset={5}>
-              {languages.map((lang) => (
-                <StyledDropdownItem key={lang.code} onClick={() => setSelectedLanguage(lang.code)}>
-                  {lang.label}
-                </StyledDropdownItem>
-              ))}
-            </StyledDropdownContent>
-          </DropdownMenu.Portal>
-        </DropdownMenu.Root>
-      </Header>
+                <DropdownMenu.Root>
+                    <StyledDropdownTrigger>
+                        {selectedLanguage}
+                        <ChevronDown size={16} />
+                    </StyledDropdownTrigger>
+                    <DropdownMenu.Portal>
+                        <StyledDropdownContent align="start" sideOffset={5}>
+                            {languages.map((lang) => (
+                                <StyledDropdownItem
+                                    key={lang.code}
+                                    onClick={() =>
+                                        setSelectedLanguage(lang.code)
+                                    }
+                                >
+                                    {lang.label}
+                                </StyledDropdownItem>
+                            ))}
+                        </StyledDropdownContent>
+                    </DropdownMenu.Portal>
+                </DropdownMenu.Root>
+            </Header>
 
             <Content>
                 <TitleSection>
@@ -78,8 +87,23 @@ export default function Home() {
                     <Subtitle>{t("upload.subtitle")}</Subtitle>
                 </TitleSection>
 
+                <InputWrapper>
+                    <InputLabel htmlFor="menu-name">{t("upload.inputLabel")}</InputLabel>
+                    <StyledInput
+                        id="menu-name"
+                        type="text"
+                        placeholder={t("upload.inputPlaceholder")}
+                        value={menuName}
+                        onChange={(e) => setMenuName(e.target.value)}
+                        aria-describedby="menu-name-hint"
+                    />
+                </InputWrapper>
+
                 <Section>
-                    <ImageUploadZone onImagesSelected={handleImagesSelected} selectedLanguage={selectedLanguage} />
+                    <ImageUploadZone
+                        onImagesSelected={handleImagesSelected}
+                        selectedLanguage={selectedLanguage}
+                    />
                 </Section>
 
                 <Section>

@@ -1,6 +1,8 @@
 {
     "upload.title": "Sube imágenes de la carta",
     "upload.subtitle": "Nosotros la digitalizaremos por ti",
+    "upload.inputLabel": "Ponle nombre a tu carta",
+    "upload.inputPlaceholder": "Ej: Carta de verano",
     "upload.uploadZoneText": "Sube imágenes desde la\ncámara o desde la galería",
     "upload.uploadZoneLabel": "Zona de carga de imágenes. Haz clic o arrastra imágenes aquí.",
     "upload.uploadZoneScreenReader": "Presiona Enter o Espacio para abrir el selector de archivos, o arrastra y suelta imágenes aquí.",

@@ -1,6 +1,8 @@
 {
-    "upload.title": "Puja imatges del menú",
+    "upload.title": "Puja imatges de la carta",
     "upload.subtitle": "Nosaltres el digitalitzarem per a tu",
+    "upload.inputLabel": "Posa-li un nom a la teva carta",
+    "upload.inputPlaceholder": "Ex: Carta d'estiu",
     "upload.uploadZoneText": "Puja imatges des de la\ncàmera o des de la galeria",
     "upload.uploadZoneLabel": "Zona de càrrega d'imatges. Fes clic o arrossega imatges aquí.",
     "upload.uploadZoneScreenReader": "Premeu Intro o Espai per obrir el selector de fitxers, o arrossegueu i deixeu anar imatges aquí.",

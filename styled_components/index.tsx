@@ -5,3 +5,4 @@ export * from "./scroll-area";
 export * from "./thumbnail";
 export * from "./tooltip";
 export * from "./upload-zone";
+export * from "./input";

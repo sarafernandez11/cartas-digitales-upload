@@ -1,6 +1,8 @@
 {
     "upload.title": "Upload menu images",
     "upload.subtitle": "We will digitize it for you",
+    "upload.inputLabel": "Name your menu",
+    "upload.inputPlaceholder": "E.g.: Summer Menu",
     "upload.uploadZoneText": "Upload images from your\ncamera or gallery",
     "upload.uploadZoneLabel": "Image upload zone. Click or drag images here.",
     "upload.uploadZoneScreenReader": "Press Enter or Space to open the file selector, or drag and drop images here.",
