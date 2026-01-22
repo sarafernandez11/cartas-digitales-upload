@@ -4,27 +4,35 @@ export const SendButton = styled.button`
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: "Futura", "Century Gothic", "Avant Garde", system-ui,
-        sans-serif;
+    font-family:
+        "Futura", "Century Gothic", "Avant Garde", system-ui, sans-serif;
     background-color: #1a1a1a;
     color: #ffffff;
-    padding: 0.6rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 9999px;
-    font-weight: 800;
+    font-weight: 700;
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     cursor: pointer;
-    transition: opacity 150ms ease;
+    transition:
+        background-color 150ms ease,
+        opacity 150ms ease;
 
-    &:hover {
+    &:hover:not(:disabled) {
         opacity: 0.9;
     }
 
     &:focus-visible {
         outline: 2px solid #a3a3a3;
         outline-offset: 2px;
+    }
+
+    &:disabled {
+        background-color: #d4d4d4;
+        color: #a3a3a3;
+        cursor: not-allowed;
     }
 `;
 

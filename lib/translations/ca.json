@@ -9,5 +9,11 @@
     "upload.imageAlt": "Imatge pujada: {filename}",
     "upload.errorNoImages": "Si us plau, puja almenys una imatge",
     "upload.sendButton": "Enviar",
-    "upload.sending": "Enviant {count} imatge(s)..."
+    "sending.log": "Enviant {count} imatge(es)...",
+    "sending.error": "Error en enviar les imatges",
+    "processing.title": "Processant",
+    "processing.subtitle": "Estem digitalitzant la teva carta. Aquest procés pot tardar uns minuts.",
+    "processing.newMenuButton": "Crear una nova carta",
+    "processing.viewMenuButton": "Veure carta digitalitzada",
+    "processing.viewMenuListButton" : "Veure el meu llistat de cartes"
 }

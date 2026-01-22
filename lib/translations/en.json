@@ -9,5 +9,11 @@
     "upload.imageAlt": "Uploaded image: {filename}",
     "upload.errorNoImages": "Please upload at least one image",
     "upload.sendButton": "Send",
-    "upload.sending": "Sending {count} image(s)..."
+    "sending.log": "Sending {count} image(s)...",
+    "sending.error": "Error sending images",
+    "processing.title": "Processing",
+    "processing.subtitle": "We are digitizing your menu. This process may take a few minutes.",
+    "processing.newMenuButton": "Create a new menu",
+    "processing.viewMenuButton": "View digitized menu",
+    "processing.viewMenuListButton" : "View my menu list"
 }

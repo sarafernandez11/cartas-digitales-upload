@@ -9,5 +9,11 @@
     "upload.imageAlt": "Imagen cargada: {filename}",
     "upload.errorNoImages": "Por favor, sube al menos una imagen",
     "upload.sendButton": "Enviar",
-    "upload.sending": "Enviando {count} imagen(es)..."
+    "sending.log": "Enviando {count} imagen(es)...",
+    "sending.error": "Error al enviar las imágenes",
+    "processing.title": "Procesando",
+    "processing.subtitle": "Estamos digitalizando tu carta. Este proceso puede tardar unos minutos.",
+    "processing.newMenuButton": "Crear una nueva carta",
+    "processing.viewMenuButton": "Ver carta digitalizada",
+    "processing.viewMenuListButton" : "Ver mi lista de cartas"
 }
