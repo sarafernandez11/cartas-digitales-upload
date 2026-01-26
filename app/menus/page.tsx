@@ -2,8 +2,17 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, MoreVertical, Pencil, FileImage, X } from "lucide-react";
+import {
+    ChevronLeft,
+    MoreVertical,
+    Pencil,
+    FileImage,
+    X,
+    Palette,
+} from "lucide-react";
 import { DropdownMenu, Dialog, Toast } from "radix-ui";
+
+import { useTranslations } from "@/lib/useTranslations";
 import {
     Main,
     Header,
@@ -45,7 +54,14 @@ import {
     ToastTitle,
     ToastDescription,
     ToastClose,
+    ColorPickerContainer,
+    ColorPickerRow,
+    ColorPickerLabel,
+    ColorPickerWrapper,
+    ColorInput,
+    ColorHexInput,
 } from "@/styled_components";
+import { isError } from "util";
 
 interface Menu {
     id: string;
@@ -53,6 +69,8 @@ interface Menu {
     previewUrl: string | null;
     isProcessing: boolean;
     createdAt: Date;
+    backgroundColor: string;
+    accentColor: string;
 }
 
 const mockMenus: Menu[] = [
@@ -62,6 +80,8 @@ const mockMenus: Menu[] = [
         previewUrl: null,
         isProcessing: true,
         createdAt: new Date("2026-01-22T10:00:00"),
+        backgroundColor: "#ffffff",
+        accentColor: "#1a1a1a",
     },
     {
         id: "2",
@@ -70,6 +90,8 @@ const mockMenus: Menu[] = [
             "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=128&h=128&fit=crop",
         isProcessing: false,
         createdAt: new Date("2026-01-22T09:30:00"),
+        backgroundColor: "#ffffff",
+        accentColor: "#1a1a1a",
     },
     {
         id: "3",
@@ -78,6 +100,8 @@ const mockMenus: Menu[] = [
             "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=128&h=128&fit=crop",
         isProcessing: false,
         createdAt: new Date("2026-01-21T15:00:00"),
+        backgroundColor: "#fef3c7",
+        accentColor: "#92400e",
     },
 ];
 
@@ -85,15 +109,26 @@ export default function MenusPage() {
     const [menus, setMenus] = useState<Menu[]>(mockMenus);
     const [editingMenu, setEditingMenu] = useState<Menu | null>(null);
     const [newName, setNewName] = useState("");
+    const [colorEditingMenu, setColorEditingMenu] = useState<Menu | null>(null);
+    const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+    const [accentColor, setAccentColor] = useState("#1a1a1a");
     const [toastOpen, setToastOpen] = useState(false);
     const [toastMessage, setToastMessage] = useState({
         title: "",
         description: "",
+        isError: false,
     });
+
+    const { t } = useTranslations("ES");
 
     const sortedMenus = [...menus].sort(
         (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
     );
+
+    const showToast = (title: string, description: string, isError = false) => {
+        setToastMessage({ title, description, isError });
+        setToastOpen(true);
+    };
 
     const handleEditName = (menu: Menu) => {
         setEditingMenu(menu);
@@ -112,16 +147,48 @@ export default function MenusPage() {
         );
         setEditingMenu(null);
         setNewName("");
-        setToastMessage({
-            title: "Guardado",
-            description: "El nombre del menu ha sido actualizado",
-        });
-        setToastOpen(true);
+        showToast(t("toast.successTitle"), t("mymenus.nameUpdated"));
     };
 
     const handleCancelEdit = () => {
         setEditingMenu(null);
         setNewName("");
+    };
+
+    const handleEditColors = (menu: Menu) => {
+        setColorEditingMenu(menu);
+        setBackgroundColor(menu.backgroundColor);
+        setAccentColor(menu.accentColor);
+    };
+
+    const handleSaveColors = () => {
+        if (!colorEditingMenu) return;
+
+        setMenus((prev) =>
+            prev.map((menu) =>
+                menu.id === colorEditingMenu.id
+                    ? { ...menu, backgroundColor, accentColor }
+                    : menu,
+            ),
+        );
+        setColorEditingMenu(null);
+        showToast(t("toast.successTitle"), t("mymenus.colorsUpdated"));
+    };
+
+    const handleCancelColorEdit = () => {
+        setColorEditingMenu(null);
+        setBackgroundColor("#ffffff");
+        setAccentColor("#1a1a1a");
+    };
+
+    const handleHexInputChange = (
+        value: string,
+        setter: (value: string) => void,
+    ) => {
+        const hex = value.startsWith("#") ? value : `#${value}`;
+        if (/^#[0-9A-Fa-f]{0,6}$/.test(hex)) {
+            setter(hex);
+        }
     };
 
     return (
@@ -135,7 +202,7 @@ export default function MenusPage() {
                                 aria-label="Volver a la pagina principal"
                             >
                                 <ChevronLeft size={20} />
-                                Volver
+                                {t("backButton")}
                             </BackButton>
                         </Link>
                     </HeaderNav>
@@ -143,8 +210,8 @@ export default function MenusPage() {
 
                 <Content>
                     <TitleSection>
-                        <Title>Mis menus</Title>
-                        <Subtitle>Gestiona tus cartas digitalizadas</Subtitle>
+                        <Title>{t("mymenus.title")}</Title>
+                        <Subtitle>{t("mymenus.subtitle")}</Subtitle>
                     </TitleSection>
 
                     {sortedMenus.length === 0 ? (
@@ -152,9 +219,11 @@ export default function MenusPage() {
                             <EmptyStateIcon>
                                 <FileImage size={28} />
                             </EmptyStateIcon>
-                            <EmptyStateTitle>No tienes menus</EmptyStateTitle>
+                            <EmptyStateTitle>
+                                {t("mymenus.emptyTitle")}
+                            </EmptyStateTitle>
                             <EmptyStateText>
-                                Sube imagenes de tu carta para empezar
+                                {t("mymenus.emptySubtitle")}
                             </EmptyStateText>
                         </EmptyState>
                     ) : (
@@ -241,7 +310,23 @@ export default function MenusPage() {
                                                             }
                                                         >
                                                             <Pencil size={16} />
-                                                            Cambiar nombre
+                                                            {t(
+                                                                "mymenus.changeNameButton",
+                                                            )}
+                                                        </MenuDropdownItem>
+                                                        <MenuDropdownItem
+                                                            onClick={() =>
+                                                                handleEditColors(
+                                                                    menu,
+                                                                )
+                                                            }
+                                                        >
+                                                            <Palette
+                                                                size={16}
+                                                            />
+                                                            {t(
+                                                                "mymenus.changeColorsButton",
+                                                            )}
                                                         </MenuDropdownItem>
                                                     </MenuDropdownContent>
                                                 </DropdownMenu.Portal>
@@ -261,7 +346,9 @@ export default function MenusPage() {
                     <Dialog.Portal>
                         <ModalOverlay />
                         <ModalContent aria-describedby="edit-name-description">
-                            <ModalTitle>Cambiar nombre</ModalTitle>
+                            <ModalTitle>
+                                {t("mymenus.changeNameButton")}
+                            </ModalTitle>
                             <InputWrapper
                                 style={{
                                     marginTop: "1rem",
@@ -269,12 +356,12 @@ export default function MenusPage() {
                                 }}
                             >
                                 <InputLabel htmlFor="edit-menu-name">
-                                    Nuevo nombre
+                                    {t("mymenus.newName")}
                                 </InputLabel>
                                 <StyledInput
                                     id="edit-menu-name"
                                     type="text"
-                                    placeholder="Nombre del menu..."
+                                    placeholder={t("mymenus.newName")}
                                     value={newName}
                                     onChange={(e) => setNewName(e.target.value)}
                                     aria-describedby="edit-name-description"
@@ -286,12 +373,98 @@ export default function MenusPage() {
                                     onClick={handleSaveName}
                                     disabled={!newName.trim()}
                                 >
-                                    Guardar
+                                    {t("saveButton")}
                                 </ModalPrimaryButton>
                                 <ModalSecondaryButton
                                     onClick={handleCancelEdit}
                                 >
-                                    Cancelar
+                                    {t("cancelButton")}
+                                </ModalSecondaryButton>
+                            </ModalButtonGroup>
+                        </ModalContent>
+                    </Dialog.Portal>
+                </Dialog.Root>
+
+                <Dialog.Root
+                    open={!!colorEditingMenu}
+                    onOpenChange={(open) => !open && handleCancelColorEdit()}
+                >
+                    <Dialog.Portal>
+                        <ModalOverlay />
+                        <ModalContent aria-describedby="edit-colors-description">
+                            <ModalTitle>
+                                {t("mymenus.changeColorsButton")}
+                            </ModalTitle>
+                            <ColorPickerContainer>
+                                <ColorPickerRow>
+                                    <ColorPickerLabel htmlFor="background-color">
+                                        {t("mymenus.backgroundColorLabel")}
+                                    </ColorPickerLabel>
+                                    <ColorPickerWrapper>
+                                        <ColorInput
+                                            id="background-color"
+                                            type="color"
+                                            value={backgroundColor}
+                                            onChange={(e) =>
+                                                setBackgroundColor(
+                                                    e.target.value,
+                                                )
+                                            }
+                                            aria-label="Selector de color de fondo"
+                                        />
+                                        <ColorHexInput
+                                            type="text"
+                                            value={backgroundColor.toUpperCase()}
+                                            onChange={(e) =>
+                                                handleHexInputChange(
+                                                    e.target.value,
+                                                    setBackgroundColor,
+                                                )
+                                            }
+                                            placeholder="#FFFFFF"
+                                            maxLength={7}
+                                            aria-label="Codigo hexadecimal del color de fondo"
+                                        />
+                                    </ColorPickerWrapper>
+                                </ColorPickerRow>
+                                <ColorPickerRow>
+                                    <ColorPickerLabel htmlFor="accent-color">
+                                        {t("mymenus.accentColorLabel")}
+                                    </ColorPickerLabel>
+                                    <ColorPickerWrapper>
+                                        <ColorInput
+                                            id="accent-color"
+                                            type="color"
+                                            value={accentColor}
+                                            onChange={(e) =>
+                                                setAccentColor(e.target.value)
+                                            }
+                                            aria-label="Selector de color de acento"
+                                        />
+                                        <ColorHexInput
+                                            type="text"
+                                            value={accentColor.toUpperCase()}
+                                            onChange={(e) =>
+                                                handleHexInputChange(
+                                                    e.target.value,
+                                                    setAccentColor,
+                                                )
+                                            }
+                                            placeholder="#1A1A1A"
+                                            maxLength={7}
+                                            aria-label="Codigo hexadecimal del color de acento"
+                                        />
+                                    </ColorPickerWrapper>
+                                </ColorPickerRow>
+                            </ColorPickerContainer>
+                            <ModalButtonGroup>
+                                <ModalPrimaryButton onClick={handleSaveColors}>
+                                    {t("saveButton")}
+                                </ModalPrimaryButton>
+                                <ModalSecondaryButton
+                                    onClick={handleCancelColorEdit}
+                                >
+                                    {t("cancelButton")}
                                 </ModalSecondaryButton>
                             </ModalButtonGroup>
                         </ModalContent>

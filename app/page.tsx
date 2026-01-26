@@ -101,7 +101,7 @@ export default function Home() {
         setProcessingModalOpen(false);
         setImages([]);
         setMenuName("");
-        showToast("Listo", "Puedes crear un nuevo menú", false);
+        showToast(t("toast.successTitle"), t("mymenus.createNewMenu"), false);
     };
 
     const handleViewMenus = () => {
@@ -144,7 +144,7 @@ export default function Home() {
                         <Link href="/menus" passHref>
                             <ViewMenusButton as="a" aria-label="Ver mis menus">
                                 <FileText size={14} />
-                                Mis menus
+                                {t("mymenus.title")}
                             </ViewMenusButton>
                         </Link>
                     </HeaderNav>
