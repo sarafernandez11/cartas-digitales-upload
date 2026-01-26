@@ -32,6 +32,8 @@
     "mymenus.backgroundColorLabel": "Color de fons",
     "mymenus.accentColorLabel": "Color d'accent",
     "mymenus.colorsUpdated": "Els colors de la carta han estat actualitzats",
+    "menuStatus.processing": "Processant...",
+    "menuStatus.ready": "Carta llesta",
     "toast.successTitle": "Llestos",
     "toast.errorTitle": "Error"
 }

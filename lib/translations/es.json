@@ -32,6 +32,8 @@
     "mymenus.backgroundColorLabel": "Color de fondo",
     "mymenus.accentColorLabel": "Color de acento",
     "mymenus.colorsUpdated": "Colores de la carta actualizados",
+    "menuStatus.processing": "Procesando...",
+    "menuStatus.ready": "Carta lista",
     "toast.successTitle": "Listo",
     "toast.errorTitle": "Error"
 }

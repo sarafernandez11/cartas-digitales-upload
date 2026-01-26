@@ -32,6 +32,8 @@
     "mymenus.backgroundColorLabel": "Background color",
     "mymenus.accentColorLabel": "Accent color",
     "mymenus.colorsUpdated": "Menu colors updated",
+    "menuStatus.processing": "Processing...",
+    "menuStatus.ready": "Ready",
     "toast.successTitle": "Done",
     "toast.errorTitle": "Error"
 }

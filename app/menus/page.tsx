@@ -267,8 +267,8 @@ export default function MenusPage() {
                                                 $processing={menu.isProcessing}
                                             />
                                             {menu.isProcessing
-                                                ? "Procesando..."
-                                                : "Completado"}
+                                                ? t("menuStatus.processing")
+                                                : t("menuStatus.ready")}
                                         </MenuStatus>
                                     </MenuInfo>
 
