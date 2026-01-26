@@ -141,9 +141,11 @@ export default function Home() {
                                 </StyledDropdownContent>
                             </DropdownMenu.Portal>
                         </DropdownMenu.Root>
-                        <Link href="/menus" aria-label="Ver mis menus">
-                            <FileText size={14} />
-                            Mis menus
+                        <Link href="/menus" passHref>
+                            <ViewMenusButton as="a" aria-label="Ver mis menus">
+                                <FileText size={14} />
+                                Mis menus
+                            </ViewMenusButton>
                         </Link>
                     </HeaderNav>
                 </Header>

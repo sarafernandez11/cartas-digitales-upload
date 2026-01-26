@@ -58,17 +58,17 @@ interface Menu {
 const mockMenus: Menu[] = [
     {
         id: "1",
-        name: "Carta de vinos",
-        previewUrl:
-            "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=128&h=128&fit=crop",
-        isProcessing: false,
+        name: "Menu del dia",
+        previewUrl: null,
+        isProcessing: true,
         createdAt: new Date("2026-01-22T10:00:00"),
     },
     {
         id: "2",
-        name: "Menu del dia",
-        previewUrl: null,
-        isProcessing: true,
+        name: "Carta de vinos",
+        previewUrl:
+            "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=128&h=128&fit=crop",
+        isProcessing: false,
         createdAt: new Date("2026-01-22T09:30:00"),
     },
     {
@@ -129,7 +129,7 @@ export default function MenusPage() {
             <Main>
                 <Header>
                     <HeaderNav>
-                        <Link href="/" passHref legacyBehavior>
+                        <Link href="/" passHref>
                             <BackButton
                                 as="a"
                                 aria-label="Volver a la pagina principal"
