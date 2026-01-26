@@ -147,7 +147,7 @@ export const ModalSecondaryButton = styled.button`
     background-color: transparent;
     color: #1a1a1a;
     padding: 0.875rem 1.5rem;
-    border: 2px solid #e5e5e5;
+    border: 1px solid #e5e5e5;
     border-radius: 9999px;
     font-weight: 700;
     font-size: 0.875rem;
